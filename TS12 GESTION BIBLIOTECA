@@ -1,0 +1,81 @@
+class Libro:
+    def __init__(self, titulo, autor, categoria, isbn):
+        libro1 = Libro("El principito", "Antoine de Saint-Exupéry", "Ficción", "9780156012195")
+        libro2 = Libro("Cien años de soledad", "Gabriel García Márquez", "Ficción", "9780307474728")
+        libro3 = Libro("El arte de la guerra", "Sun Tzu", "No ficción", "9786075570704")
+        self.titulo_autor = (titulo, autor)  # Usamos una tupla para almacenar título y autor
+        self.categoria = categoria
+        self.isbn = isbn
+
+class Usuario:
+    def __init__(self, nombre, usuario_id):
+        usuario1 = Usuario("Juan Pérez", 1)
+        usuario2 = Usuario("María Gómez", 2)
+        usuario3 = Usuario("Adrian Villegas", 3)
+        self.nombre = nombre
+        self.usuario_id = usuario_id
+        self.libros_prestados = []  # Lista para gestionar los libros prestados a cada usuario
+
+class Biblioteca:
+    def __init__(self):
+        biblioteca = Biblioteca()
+        self.libros_disponibles = {}  # Diccionario para almacenar libros disponibles por ISBN
+        self.usuarios_registrados = set()  # Conjunto para IDs de usuarios únicos
+
+    def agregar_libro(self, libro):
+        biblioteca.agregar_libro(libro1)
+        biblioteca.agregar_libro(libro2)
+        biblioteca.agregar_libro(libro3)
+        self.libros_disponibles[libro.isbn] = libro
+
+    def quitar_libro(self, isbn):
+        if isbn in self.libros_disponibles:
+            del self.libros_disponibles[isbn]
+
+    def registrar_usuario(self, usuario):
+        biblioteca.registrar_usuario(usuario1)
+        biblioteca.registrar_usuario(usuario2)
+        biblioteca.registrar_usuario(usuario3)
+        self.usuarios_registrados.add(usuario.usuario_id)
+
+    def dar_de_baja_usuario(self, usuario_id):
+        if usuario_id in self.usuarios_registrados:
+            self.usuarios_registrados.remove(usuario_id)
+
+    def prestar_libro(self, isbn, usuario):
+        biblioteca.prestar_libro("9780156012195", usuario1)
+        biblioteca.prestar_libro("9780307474728", usuario2)
+        if isbn in self.libros_disponibles and usuario.usuario_id in self.usuarios_registrados:
+            libro_prestado = self.libros_disponibles.pop(isbn)
+            usuario.libros_prestados.append(libro_prestado)
+
+    def devolver_libro(self, isbn, usuario):
+        biblioteca.devolver_libro("9786075570704", "usuario1")
+        for libro in usuario.libros_prestados:
+            if libro.isbn == isbn:
+                usuario.libros_prestados.remove(libro)
+                self.libros_disponibles[isbn] = libro
+                break
+
+    def buscar_libros_por_titulo(self, titulo):
+        print(biblioteca.buscar_libros_por_titulo("El principito"))
+        print(biblioteca.buscar_libros_por_titulo("Cien años de soledad"))
+        print(biblioteca.buscar_libros_por_titulo("El arte de la guerra"))
+        return [libro for libro in self.libros_disponibles.values() if libro.titulo_autor[0] == titulo]
+
+    def buscar_libros_por_autor(self, autor):
+        print(biblioteca.buscar_libros_por_autor("Antoine de Saint-Exupéry"))
+        print(biblioteca.buscar_libros_por_autor("Gabriel García Márquez"))
+        print(biblioteca.buscar_libros_por_autor("Sun Tzu"))
+        return [libro for libro in self.libros_disponibles.values() if libro.titulo_autor[1] == autor]
+
+    def buscar_libros_por_categoria(self, categoria):
+        print(biblioteca.buscar_libros_por_categoria("Ficción"))
+        print(biblioteca.buscar_libros_por_categoria("No ficción"))
+        return [libro for libro in self.libros_disponibles.values() if libro.categoria == categoria]
+
+    def listar_libros_prestados(self, usuario):
+        print(listar_libros_prestados(usuario1))
+        print(listar_libros_prestados(usuario2))
+        print(listar_libros_prestados(usuario3))
+        return usuario.libros_prestados
